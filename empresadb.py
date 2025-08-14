@@ -90,7 +90,24 @@ exp_sql9 = '''INSERT INTO funcionarios_competencias(codigo,id,data) values
 cur.execute(exp_sql9)  
 
 ''' o Mysql guarda as datas como YYY-MM-DD'''
-
 con.commit()
+
+exp_sql10 = '''SELECT codigo, nome FROM funcionarios
+            WHERE sexo = 'M'
+            '''
+cur.execute(exp_sql10)
+
+dados = cur.fetchall()
+for linha in dados:
+    print("Código: %d, Nome: %s \n" %linha )
+
+exp_sql11 = ''' select codigo, nome from funcionarios
+                where nome like %s '''
+nome = input('Funcionário a localizar: ')
+args = (f'%{nome}%',)
+cur.execute(exp_sql11,args)
+dados = cur.fetchall()
+for linha in dados:
+    print('Código: %d, Nome: %s \n' %linha)
 
 con.close()
